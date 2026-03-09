@@ -1,18 +1,18 @@
 {
     "set1": {
-        "0": "Passeuse 1",
-        "1": "Attaquante A",
-        "2": "Centrale X",
-        "3": "Pointue 1",
-        "4": "Attaquante B",
-        "5": "Centrale Y"
+        "0": "Adé 16",
+        "1": "Anais 45",
+        "2": "Alice 27",
+        "3": "Mellie 12",
+        "4": "Sara 53",
+        "5": "Oli 24"
     },
     "set2": {
-        "0": "Passeuse 2",
-        "1": "Attaquante C",
-        "2": "Centrale Z",
-        "3": "Pointue 2",
-        "4": "Attaquante D",
-        "5": "Centrale W"
+        "0": "Adé 16",
+        "1": "T Flo 59",
+        "2": "Flo 40",
+        "3": "Malie 21",
+        "4": "Alex 14",
+        "5": "Léa 2"
     }
 }
