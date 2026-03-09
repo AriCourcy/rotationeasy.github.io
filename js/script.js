@@ -275,7 +275,7 @@ function render() {
 }
 
 function animateLoop() {
-    let speed = 0.04;
+    let speed = 0.02; // Plus lent (anciennement 0.04)
     if (isSwitched && progress < 1) {
         progress += speed;
         if (progress > 1) progress = 1;
