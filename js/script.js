@@ -108,11 +108,25 @@ const RECEPTION_START = {
 };
 
 // --- État de l'Application ---
+let playerNames = {};
 let currentRotation = 1;
 let currentPhase = 'reception'; // 'reception' ou 'service'
 let isSwitched = false;
 let progress = 0;
 let animationId = null;
+
+// Charger les noms des joueuses
+async function loadPlayerNames() {
+    try {
+        const response = await fetch('players.json');
+        playerNames = await response.json();
+    } catch (e) {
+        console.error("Erreur chargement noms:", e);
+        // Noms par défaut si le fichier manque
+        playerNames = { "0":"S", "1":"OH1", "2":"MB1", "3":"OPP", "4":"OH2", "5":"MB2" };
+    }
+    updateUI();
+}
 
 // --- Logique de Calcul des Coordonnées ---
 
@@ -223,6 +237,13 @@ function drawPlayer(x, y, player, alpha = 1) {
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText(player.label, x, y);
+
+    // Afficher le nom de la joueuse en dessous
+    ctx.fillStyle = '#000';
+    ctx.font = 'bold 12px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(playerNames[player.id] || "", x, y + 25);
+    
     ctx.globalAlpha = 1;
 }
 
@@ -314,4 +335,4 @@ document.getElementById('toggle-switch').addEventListener('click', () => {
 });
 
 // Initialisation
-updateUI();
+loadPlayerNames();
