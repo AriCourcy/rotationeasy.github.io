@@ -108,7 +108,8 @@ const RECEPTION_START = {
 };
 
 // --- État de l'Application ---
-let playerNames = {};
+let allPlayerSets = {};
+let currentSet = 'set1';
 let currentRotation = 1;
 let currentPhase = 'reception'; // 'reception' ou 'service'
 let isSwitched = false;
@@ -119,11 +120,14 @@ let animationId = null;
 async function loadPlayerNames() {
     try {
         const response = await fetch('players.json');
-        playerNames = await response.json();
+        allPlayerSets = await response.json();
     } catch (e) {
         console.error("Erreur chargement noms:", e);
         // Noms par défaut si le fichier manque
-        playerNames = { "0":"S", "1":"OH1", "2":"MB1", "3":"OPP", "4":"OH2", "5":"MB2" };
+        allPlayerSets = { 
+            "set1": { "0":"S", "1":"OH1", "2":"MB1", "3":"OPP", "4":"OH2", "5":"MB2" },
+            "set2": { "0":"S2", "1":"OH1-2", "2":"MB1-2", "3":"OPP2", "4":"OH2-2", "5":"MB2-2" }
+        };
     }
     updateUI();
 }
@@ -242,7 +246,8 @@ function drawPlayer(x, y, player, alpha = 1) {
     ctx.fillStyle = '#000';
     ctx.font = 'bold 12px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText(playerNames[player.id] || "", x, y + 25);
+    const names = allPlayerSets[currentSet] || {};
+    ctx.fillText(names[player.id] || "", x, y + 25);
     
     ctx.globalAlpha = 1;
 }
@@ -313,6 +318,15 @@ document.querySelectorAll('.rotation-btn').forEach(btn => {
         isSwitched = false;
         progress = 0;
         updateUI();
+    });
+});
+
+document.querySelectorAll('.set-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.set-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        currentSet = e.target.dataset.set;
+        render();
     });
 });
 
