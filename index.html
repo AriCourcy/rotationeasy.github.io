@@ -18,6 +18,15 @@
             <button class="phase-btn" data-phase="service">Service (Défense)</button>
         </div>
 
+        <div class="controls">
+            <button class="rotation-btn active" data-rotation="1">P1</button>
+            <button class="rotation-btn" data-rotation="2">P6</button>
+            <button class="rotation-btn" data-rotation="3">P5</button>
+            <button class="rotation-btn" data-rotation="4">P4</button>
+            <button class="rotation-btn" data-rotation="5">P3</button>
+            <button class="rotation-btn" data-rotation="6">P2</button>
+        </div>
+
         <div class="court-container">
             <canvas id="volleyCourt" width="400" height="500"></canvas>
             <div class="legend">
@@ -28,17 +37,17 @@
             </div>
         </div>
 
-        <div class="set-selector" style="margin-top: 20px;">
-            <button class="set-btn active" data-set="set1">Set 1</button>
-            <button class="set-btn" data-set="set2">Set 2</button>
-        </div>
-
         <div class="info-panel">
             <h2 id="rotation-title">Rotation 1</h2>
             <p id="rotation-description">Passeur en Poste 1. Prêt pour la réception.</p>
             <div class="actions">
                 <button id="toggle-switch" class="action-btn">Lancer la Transition</button>
             </div>
+        </div>
+
+        <div class="set-selector" style="margin-top: 30px;">
+            <button class="set-btn active" data-set="set1">Set 1</button>
+            <button class="set-btn" data-set="set2">Set 2</button>
         </div>
     </div>
 
