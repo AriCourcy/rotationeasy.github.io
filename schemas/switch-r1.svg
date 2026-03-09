@@ -1,0 +1,20 @@
+<svg width="400" height="500" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+    <!-- Fond du terrain -->
+    <rect width="400" height="500" fill="#f3e5ab" stroke="#d4c58d" stroke-width="5"/>
+    
+    <!-- Filet (Haut) -->
+    <rect width="400" height="10" fill="#333333" y="0"/>
+    <text x="170" y="25" font-family="Arial" font-size="14" fill="black">FILET</text>
+    
+    <!-- Ligne des 3 mètres -->
+    <line x1="0" y1="150" x2="400" y2="150" stroke="#ffffff" stroke-width="3" stroke-dasharray="5,5"/>
+    
+    <!-- Titre -->
+    <text x="20" y="480" font-family="Arial" font-size="16" font-weight="bold" fill="black">Switch Rotation 1</text>
+    
+    <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50" />
+        </marker>
+    </defs>
+    <line x1="330" y1="350" x2="280" y2="50" stroke="#2c3e50" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrowhead)" /><circle cx="330" cy="350" r="15" fill="#e74c3c" stroke="white" stroke-width="1"/><text x="325" y="355" font-family="Arial" font-size="10" font-weight="bold" fill="white">S</text><circle cx="280" cy="50" r="12" fill="#3498db" fill-opacity="0.3" stroke="#3498db" stroke-width="1" stroke-dasharray="2"/><line x1="330" y1="100" x2="70" y2="80" stroke="#2c3e50" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrowhead)" /><circle cx="330" cy="100" r="15" fill="#e74c3c" stroke="white" stroke-width="1"/><text x="325" y="105" font-family="Arial" font-size="10" font-weight="bold" fill="white">OH</text><circle cx="70" cy="80" r="12" fill="#3498db" fill-opacity="0.3" stroke="#3498db" stroke-width="1" stroke-dasharray="2"/><line x1="70" y1="100" x2="330" y2="80" stroke="#2c3e50" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrowhead)" /><circle cx="70" cy="100" r="15" fill="#e74c3c" stroke="white" stroke-width="1"/><text x="65" y="105" font-family="Arial" font-size="10" font-weight="bold" fill="white">OPP</text><circle cx="330" cy="80" r="12" fill="#3498db" fill-opacity="0.3" stroke="#3498db" stroke-width="1" stroke-dasharray="2"/><line x1="200" y1="100" x2="200" y2="80" stroke="#2c3e50" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrowhead)" /><circle cx="200" cy="100" r="15" fill="#e74c3c" stroke="white" stroke-width="1"/><text x="195" y="105" font-family="Arial" font-size="10" font-weight="bold" fill="white">MB</text><circle cx="200" cy="80" r="12" fill="#3498db" fill-opacity="0.3" stroke="#3498db" stroke-width="1" stroke-dasharray="2"/></svg>

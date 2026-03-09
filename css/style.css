@@ -1,0 +1,151 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #2d3436;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    text-align: center;
+    max-width: 650px;
+    width: 95%;
+}
+
+header h1 {
+    margin-top: 0;
+    color: #1e3799;
+}
+
+header p {
+    color: #636e72;
+    margin-bottom: 25px;
+}
+
+.phase-selector {
+    display: flex;
+    background: #dfe6e9;
+    padding: 5px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    gap: 5px;
+}
+
+.phase-btn {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 10px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #636e72;
+    transition: all 0.3s;
+}
+
+.phase-btn.active {
+    background: white;
+    color: #1e3799;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.rotation-btn {
+    width: 45px;
+    height: 45px;
+    border: 2px solid #dfe6e9;
+    background-color: white;
+    color: #2d3436;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.rotation-btn.active {
+    background-color: #1e3799;
+    color: white;
+    border-color: #1e3799;
+}
+
+.court-container {
+    position: relative;
+    margin: 0 auto;
+}
+
+canvas {
+    background-color: #f6b93b; /* Terrain plus vif */
+    border: 6px solid #e58e26;
+    border-radius: 4px;
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 15px;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot.s { background-color: #e67e22; }
+.dot.oh { background-color: #0984e3; }
+.dot.mb { background-color: #6c5ce7; }
+.dot.opp { background-color: #d63031; }
+.dot.l { background-color: #00b894; }
+
+.info-panel {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #f9f9fb;
+    border-radius: 12px;
+    text-align: left;
+}
+
+.action-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background-color: #1e3799;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.1s;
+}
+
+.action-btn:active {
+    transform: scale(0.98);
+}
+
+.action-btn:hover {
+    background-color: #0c2461;
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Volley 5-1 : Rotations et Transitions</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Système de Jeu 5-1</h1>
+            <p>Visualisation des transitions d'attaque et de défense</p>
+        </header>
+
+        <div class="phase-selector">
+            <button class="phase-btn active" data-phase="reception">Réception (Attaque)</button>
+            <button class="phase-btn" data-phase="service">Service (Défense)</button>
+        </div>
+
+        <div class="controls">
+            <button class="rotation-btn active" data-rotation="1">P1</button>
+            <button class="rotation-btn" data-rotation="2">P6</button>
+            <button class="rotation-btn" data-rotation="3">P5</button>
+            <button class="rotation-btn" data-rotation="4">P4</button>
+            <button class="rotation-btn" data-rotation="5">P3</button>
+            <button class="rotation-btn" data-rotation="6">P2</button>
+        </div>
+
+        <div class="court-container">
+            <canvas id="volleyCourt" width="400" height="500"></canvas>
+            <div class="legend">
+                <div class="legend-item"><span class="dot s"></span> Passeur (S)</div>
+                <div class="legend-item"><span class="dot oh"></span> Récep/Att (OH)</div>
+                <div class="legend-item"><span class="dot mb"></span> Central (MB)</div>
+                <div class="legend-item"><span class="dot opp"></span> Pointu (OPP)</div>
+                <div class="legend-item"><span class="dot l"></span> Libero (L)</div>
+            </div>
+        </div>
+
+        <div class="info-panel">
+            <h2 id="rotation-title">Rotation 1</h2>
+            <p id="rotation-description">Passeur en Poste 1. Prêt pour la réception.</p>
+            <div class="actions">
+                <button id="toggle-switch" class="action-btn">Lancer la Transition</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
