@@ -75,11 +75,11 @@ const RECEPTION_START = {
     },
     3: { // S en P5
         0: { x: 50, y: 440 },  // S se cache à gauche
-        1: { x: 200, y: 100 }, // OH1 au filet
-        2: { x: 70, y: 100 },  // MB1 au filet
+        1: { x: 200, y: 380 }, // OH1 en réception P6
+        2: { x: 330, y: 440 }, // MB1 se cache en P1
         3: { x: 330, y: 100 }, // OPP au filet
-        4: { x: 200, y: 380 }, // OH2 recule en P6
-        5: { x: 330, y: 380 }  // L en P1
+        4: { x: 70, y: 380 },  // OH2 descend en réception P5
+        5: { x: 330, y: 380 }  // L en réception P1
     },
     4: { // S en P4 (S est devant)
         0: { x: 50, y: 80 },   // S déjà au filet
@@ -90,12 +90,12 @@ const RECEPTION_START = {
         5: { x: 200, y: 440 }  // L fond
     },
     5: { // S en P3
-        0: { x: 200, y: 80 },
-        1: { x: 70, y: 380 },
-        2: { x: 330, y: 100 },
-        3: { x: 200, y: 380 },
-        4: { x: 330, y: 380 },
-        5: { x: 200, y: 440 }
+        0: { x: 200, y: 80 },  // S au filet
+        1: { x: 70, y: 380 },  // OH1 descend en P5
+        2: { x: 330, y: 440 }, // MB1 se cache en P1
+        3: { x: 200, y: 380 }, // OPP (arrière) réception P6
+        4: { x: 330, y: 380 }, // OH2 (arrière) réception P1
+        5: { x: 350, y: 100 }  // L (MB2) au filet
     },
     6: { // S en P2
         0: { x: 350, y: 80 },
