@@ -57,53 +57,53 @@ const PLAYERS = [
 // --- Positions Spécifiques (Réception pour éviter les chevauchements) ---
 // Chaque rotation a un placement de départ optimisé pour la réception
 const RECEPTION_START = {
-    1: { // S en P1
-        0: { x: 350, y: 450 }, // S (Passeur) caché P1
-        1: { x: 330, y: 380 }, // OH1 (P2 -> P1) réception
-        2: { x: 200, y: 100 }, // MB1 (P3) filet
-        3: { x: 70, y: 100 },  // OPP (P4) filet
-        4: { x: 70, y: 380 },  // OH2 (P5) réception
-        5: { x: 200, y: 380 }  // MB2 (P6) réception
+    1: { // S en P1 - Légal (S=1, OH1=2, MB1=3, OPP=4, OH2=5, MB2=6)
+        0: { x: 330, y: 140 }, // S (P1) derrière OH1
+        1: { x: 330, y: 110 }, // OH1 (P2) au filet
+        2: { x: 200, y: 100 }, // MB1 (P3) au filet
+        3: { x: 60, y: 100 },  // OPP (P4) au filet
+        4: { x: 80, y: 380 },  // OH2 (P5) reçoit
+        5: { x: 210, y: 380 }  // MB2 (P6) reçoit
     },
-    2: { // S en P6
-        0: { x: 200, y: 450 }, // S (P6) caché
-        1: { x: 330, y: 380 }, // OH1 (P1) réception
-        2: { x: 330, y: 100 }, // MB1 (P2) filet
-        3: { x: 200, y: 100 }, // OPP (P3) filet
-        4: { x: 70, y: 380 },  // OH2 (P4 -> P5) réception
-        5: { x: 200, y: 380 }  // MB2 (P5 -> P6) réception
+    2: { // S en P6 - Légal (S=6, OH1=1, MB1=2, OPP=3, OH2=4, MB2=5)
+        0: { x: 200, y: 140 }, // S (P6) derrière OPP
+        1: { x: 330, y: 380 }, // OH1 (P1) reçoit
+        2: { x: 330, y: 100 }, // MB1 (P2) au filet
+        3: { x: 200, y: 110 }, // OPP (P3) au filet
+        4: { x: 70, y: 380 },  // OH2 (P4->P5) reçoit
+        5: { x: 200, y: 380 }  // MB2 (P5->P6) reçoit
     },
-    3: { // S en P5
-        0: { x: 50, y: 450 },  // S (P5) caché
-        1: { x: 200, y: 380 }, // OH1 (P6) réception
-        2: { x: 330, y: 380 }, // MB1 (P1) réception
-        3: { x: 330, y: 100 }, // OPP (P2) filet
-        4: { x: 70, y: 380 },  // OH2 (P3 -> P5) réception
-        5: { x: 200, y: 100 }  // MB2 (P4) filet
+    3: { // S en P5 - Légal (S=5, OH1=6, MB1=1, OPP=2, OH2=3, MB2=4)
+        0: { x: 70, y: 140 },  // S (P5) derrière MB2
+        1: { x: 200, y: 380 }, // OH1 (P6) reçoit
+        2: { x: 330, y: 380 }, // MB1 (P1) reçoit
+        3: { x: 330, y: 100 }, // OPP (P2) au filet
+        4: { x: 200, y: 100 }, // OH2 (P3) au filet
+        5: { x: 70, y: 110 }   // MB2 (P4) au filet
     },
-    4: { // S en P4
-        0: { x: 50, y: 80 },   // S (P4) filet
-        1: { x: 70, y: 380 },  // OH1 (P5) réception
-        2: { x: 200, y: 380 }, // MB1 (P6) réception
-        3: { x: 330, y: 380 }, // OPP (P1) réception
-        4: { x: 200, y: 100 }, // OH2 (P2) filet
-        5: { x: 330, y: 100 }  // MB2 (P3) filet
+    4: { // S en P4 - Légal (S=4, OH1=5, MB1=6, OPP=1, OH2=2, MB2=3)
+        0: { x: 60, y: 110 },   // S (P4) au filet
+        1: { x: 80, y: 380 },   // OH1 (P5) reçoit
+        2: { x: 210, y: 380 },  // MB1 (P6) reçoit
+        3: { x: 330, y: 380 },  // OPP (P1) reçoit
+        4: { x: 330, y: 110 },  // OH2 (P2) au filet
+        5: { x: 200, y: 100 }   // MB2 (P3) au filet
     },
-    5: { // S en P3
-        0: { x: 200, y: 80 },  // S (P3) filet
-        1: { x: 70, y: 100 },  // OH1 (P4) filet
-        2: { x: 70, y: 380 },  // MB1 (P5) réception
-        3: { x: 200, y: 380 }, // OPP (P6) réception
-        4: { x: 40, y: 450 },  // OH2 (P1) COIN BAS GAUCHE
-        5: { x: 330, y: 100 }  // MB2 (P2) filet
+    5: { // S en P3 - Légal (S=3, OH1=4, MB1=5, OPP=6, OH2=1, MB2=2)
+        0: { x: 200, y: 110 }, // S (P3) au filet
+        1: { x: 70, y: 380 },  // OH1 (P4->P5) reçoit (doit rester à gauche de S)
+        2: { x: 50, y: 450 },  // MB1 (P5) cachée fond gauche
+        3: { x: 200, y: 380 }, // OPP (P6) reçoit
+        4: { x: 330, y: 380 }, // OH2 (P1) reçoit (doit rester à droite de OPP)
+        5: { x: 330, y: 100 }  // MB2 (P2) au filet
     },
-    6: { // S en P2
-        0: { x: 350, y: 80 },  // S (P2) filet
-        1: { x: 70, y: 100 },  // OH1 (P3) filet
-        2: { x: 200, y: 100 }, // MB1 (P4) filet
-        3: { x: 70, y: 380 },  // OPP (P5) réception
-        4: { x: 200, y: 380 }, // OH2 (P6) réception
-        5: { x: 330, y: 380 }  // MB2 (P1) réception
+    6: { // S en P2 - Légal (S=2, OH1=3, MB1=4, OPP=5, OH2=6, MB2=1)
+        0: { x: 330, y: 110 }, // S (P2) au filet
+        1: { x: 200, y: 100 }, // OH1 (P3) au filet
+        2: { x: 70, y: 100 },  // MB1 (P4) au filet
+        3: { x: 70, y: 380 },  // OPP (P5) reçoit
+        4: { x: 210, y: 380 }, // OH2 (P6) reçoit
+        5: { x: 330, y: 380 }  // MB2 (P1) reçoit
     }
 };
 
