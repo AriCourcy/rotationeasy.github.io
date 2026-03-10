@@ -11,7 +11,7 @@ const COLORS = {
     s: '#e67e22',   // Orange: Passeur
     oh: '#0984e3',  // Bleu: OH
     mb: '#6c5ce7',  // Violet: MB
-    opp: '#d63031', // Rouge: Pointu
+    opp: '#d63031', // Rouge: Technique
 };
 
 // --- Coordonnées de Base (Postes standard 1-6) ---
@@ -144,7 +144,7 @@ async function loadPlayerNames() {
     } catch (e) {
         console.error("Erreur chargement noms:", e);
         allPlayerSets = { 
-            "set1": { "0":"S1", "1":"OH1", "2":"MB1", "3":"S2/OPP", "4":"OH2", "5":"MB2" },
+            "set1": { "0":"S1", "1":"OH1", "2":"MB1", "3":"Technique", "4":"OH2", "5":"MB2" },
             "set2": { "0":"S1-2", "1":"OH1-2", "2":"MB1-2", "3":"S2-2", "4":"OH2-2", "5":"MB2-2" }
         };
     }
