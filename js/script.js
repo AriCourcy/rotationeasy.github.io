@@ -12,7 +12,6 @@ const COLORS = {
     oh: '#0984e3',  // Bleu: OH
     mb: '#6c5ce7',  // Violet: MB
     opp: '#d63031', // Rouge: Pointu
-    l: '#00b894'    // Vert: Libero
 };
 
 // --- Coordonnées de Base (Postes standard 1-6) ---
@@ -43,78 +42,99 @@ const TARGETS = {
     }
 };
 
-// --- Joueurs (Composition type 5-1) ---
-// S: Passeur, OH1: Attaquant 1, MB1: Central 1, OPP: Pointu, OH2: Attaquant 2, L: Libero
-const PLAYERS = [
-    { id: 0, role: 's', label: 'S' },
-    { id: 1, role: 'oh', label: 'OH1' },
-    { id: 2, role: 'mb', label: 'MB1' },
-    { id: 3, role: 'opp', label: 'OPP' },
-    { id: 4, role: 'oh', label: 'OH2' },
-    { id: 5, role: 'mb', label: 'MB2' }
-];
-
-// --- Positions Spécifiques (Réception pour éviter les chevauchements) ---
-// Chaque rotation a un placement de départ optimisé pour la réception
-const RECEPTION_START = {
-    1: { // S en P1 - MODIFIÉ: Décalage à gauche pour ligne de 3
-        0: { x: 350, y: 140 }, // S (P1) collée à droite derrière OH1
-        1: { x: 350, y: 110 }, // OH1 (P2) au filet à droite
-        2: { x: 200, y: 100 }, // MB1 (P3) au filet
-        3: { x: 300, y: 340 }, // OPP (P4) recule à DROITE de la ligne de 3
-        4: { x: 60, y: 380 },  // OH2 (P5) à GAUCHE de la ligne de 3
-        5: { x: 180, y: 380 }  // MB2 (P6) au CENTRE de la ligne de 3
-    },
-    2: { // S en P6 - Légal (S=6, OH1=1, MB1=2, OPP=3, OH2=4, MB2=5)
-        0: { x: 200, y: 140 }, // S (P6) derrière OPP
-        1: { x: 330, y: 380 }, // OH1 (P1) reçoit
-        2: { x: 330, y: 100 }, // MB1 (P2) au filet
-        3: { x: 200, y: 110 }, // OPP (P3) au filet
-        4: { x: 70, y: 380 },  // OH2 (P4->P5) reçoit
-        5: { x: 200, y: 380 }  // MB2 (P5->P6) reçoit
-    },
-    3: { // S en P5 - MODIFIÉ: Décalage à gauche pour ligne de 3
-        0: { x: 40, y: 140 },  // S (P5) cachée à gauche derrière MB2
-        1: { x: 80, y: 380 },  // OH1 (P6) à GAUCHE de la ligne de 3
-        2: { x: 200, y: 380 }, // MB1 (P1) au CENTRE de la ligne de 3
-        3: { x: 320, y: 340 }, // OPP (P2) recule à DROITE de la ligne de 3
-        4: { x: 200, y: 100 }, // OH2 (P3) au filet
-        5: { x: 40, y: 110 }   // MB2 (P4) au filet à gauche
-    },
-    4: { // S en P4 - Légal (S=4, OH1=5, MB1=6, OPP=1, OH2=2, MB2=3)
-        0: { x: 60, y: 110 },   // S (P4) au filet
-        1: { x: 80, y: 380 },   // OH1 (P5) reçoit
-        2: { x: 210, y: 380 },  // MB1 (P6) reçoit
-        3: { x: 330, y: 380 },  // OPP (P1) reçoit
-        4: { x: 330, y: 110 },  // OH2 (P2) au filet
-        5: { x: 200, y: 100 }   // MB2 (P3) au filet
-    },
-    5: { // S en P3 - MODIFIÉ: MB1 participe à la réception
-        0: { x: 200, y: 110 }, // S (P3) au filet
-        1: { x: 130, y: 250 }, // OH1 (P4) AVANCÉE POUR LES COURTES
-        2: { x: 70, y: 380 },  // MB1 (P5) RÉCEPTION POSTE 5
-        3: { x: 200, y: 380 }, // OPP (P6) RÉCEPTION POSTE 6
-        4: { x: 330, y: 380 }, // OH2 (P1) RÉCEPTION POSTE 1
-        5: { x: 330, y: 100 }  // MB2 (P2) au filet
-    },
-    6: { // S en P2 - Légal (S=2, OH1=3, MB1=4, OPP=5, OH2=6, MB2=1)
-        0: { x: 330, y: 110 }, // S (P2) au filet
-        1: { x: 200, y: 100 }, // OH1 (P3) au filet
-        2: { x: 70, y: 100 },  // MB1 (P4) au filet
-        3: { x: 70, y: 380 },  // OPP (P5) reçoit
-        4: { x: 210, y: 380 }, // OH2 (P6) reçoit
-        5: { x: 330, y: 380 }  // MB2 (P1) reçoit
-    }
-};
-
 // --- État de l'Application ---
 let allPlayerSets = {};
 let currentSet = 'set1';
+let currentSystem = '5-1';
 let currentRotation = 1;
-let currentPhase = 'reception'; // 'reception' ou 'service'
+let currentPhase = 'reception'; 
 let isSwitched = false;
 let progress = 0;
 let animationId = null;
+
+// --- CONFIGURATIONS DES SYSTÈMES ---
+
+const SYSTEMS = {
+    '5-1': {
+        players: [
+            { id: 0, role: 's', label: 'S' },
+            { id: 1, role: 'oh', label: 'OH1' },
+            { id: 2, role: 'mb', label: 'MB1' },
+            { id: 3, role: 'opp', label: 'OPP' },
+            { id: 4, role: 'oh', label: 'OH2' },
+            { id: 5, role: 'mb', label: 'MB2' }
+        ],
+        reception: {
+            1: { 0: { x: 330, y: 140 }, 1: { x: 330, y: 110 }, 2: { x: 200, y: 100 }, 3: { x: 60, y: 100 }, 4: { x: 80, y: 380 }, 5: { x: 210, y: 380 } },
+            2: { 0: { x: 200, y: 140 }, 1: { x: 330, y: 380 }, 2: { x: 330, y: 100 }, 3: { x: 200, y: 110 }, 4: { x: 70, y: 380 }, 5: { x: 200, y: 380 } },
+            3: { 0: { x: 70, y: 140 }, 1: { x: 200, y: 380 }, 2: { x: 330, y: 380 }, 3: { x: 330, y: 100 }, 4: { x: 200, y: 100 }, 5: { x: 70, y: 110 } },
+            4: { 0: { x: 60, y: 110 }, 1: { x: 80, y: 380 }, 2: { x: 210, y: 380 }, 3: { x: 330, y: 380 }, 4: { x: 330, y: 110 }, 5: { x: 200, y: 100 } },
+            5: { 0: { x: 200, y: 110 }, 1: { x: 130, y: 250 }, 2: { x: 70, y: 380 }, 3: { x: 200, y: 380 }, 4: { x: 330, y: 380 }, 5: { x: 330, y: 100 } },
+            6: { 0: { x: 330, y: 110 }, 1: { x: 200, y: 100 }, 2: { x: 70, y: 100 }, 3: { x: 70, y: 380 }, 4: { x: 210, y: 380 }, 5: { x: 330, y: 380 } }
+        }
+    },
+    '4-2': {
+        players: [
+            { id: 0, role: 's', label: 'S1' },
+            { id: 1, role: 'oh', label: 'OH1' },
+            { id: 2, role: 'mb', label: 'MB1' },
+            { id: 3, role: 's', label: 'S2' },
+            { id: 4, role: 'oh', label: 'OH2' },
+            { id: 5, role: 'mb', label: 'MB2' }
+        ],
+        reception: {
+            // S1 et S2 sont opposées. La passeuse devant distribue.
+            1: { // S1 en P1, S2 en P4 (S2 distribue)
+                0: { x: 330, y: 380 }, // S1 (P1) reçoit arrière-droite
+                1: { x: 330, y: 110 }, // OH1 (P2) au filet
+                2: { x: 200, y: 110 }, // MB1 (P3) au filet
+                3: { x: 70, y: 110 },  // S2 (P4) au filet (PASSEUSE)
+                4: { x: 70, y: 380 },  // OH2 (P5) reçoit arrière-gauche
+                5: { x: 200, y: 380 }  // MB2 (P6) reçoit centre
+            },
+            2: { // S1 en P6, S2 en P3 (S2 distribue)
+                0: { x: 200, y: 380 }, // S1 (P6) reçoit centre
+                1: { x: 330, y: 380 }, // OH1 (P1) reçoit arrière-droite
+                2: { x: 330, y: 110 }, // MB1 (P2) au filet
+                3: { x: 200, y: 110 }, // S2 (P3) au filet (PASSEUSE)
+                4: { x: 70, y: 110 },  // OH2 (P4) au filet
+                5: { x: 70, y: 380 }   // MB2 (P5) reçoit arrière-gauche
+            },
+            3: { // S1 en P5, S2 en P2 (S2 distribue)
+                0: { x: 70, y: 380 },  // S1 (P5) reçoit arrière-gauche
+                1: { x: 200, y: 380 }, // OH1 (P6) reçoit centre
+                2: { x: 330, y: 380 }, // MB1 (P1) reçoit arrière-droite
+                3: { x: 330, y: 110 }, // S2 (P2) au filet (PASSEUSE)
+                4: { x: 200, y: 110 }, // OH2 (P3) au filet
+                5: { x: 70, y: 110 }   // MB2 (P4) au filet
+            },
+            4: { // S1 en P4, S2 en P1 (S1 distribue)
+                0: { x: 70, y: 110 },  // S1 (P4) au filet (PASSEUSE)
+                1: { x: 70, y: 380 },  // OH1 (P5) reçoit arrière-gauche
+                2: { x: 200, y: 380 }, // MB1 (P6) reçoit centre
+                3: { x: 330, y: 380 }, // S2 (P1) reçoit arrière-droite
+                4: { x: 330, y: 110 }, // OH2 (P2) au filet
+                5: { x: 200, y: 110 }  // MB2 (P3) au filet
+            },
+            5: { // S1 en P3, S2 en P6 (S1 distribue)
+                0: { x: 200, y: 110 }, // S1 (P3) au filet (PASSEUSE)
+                1: { x: 70, y: 110 },  // OH1 (P4) au filet
+                2: { x: 70, y: 380 },  // MB1 (P5) reçoit arrière-gauche
+                3: { x: 200, y: 380 }, // S2 (P6) reçoit centre
+                4: { x: 330, y: 380 }, // OH2 (P1) reçoit arrière-droite
+                5: { x: 330, y: 110 }  // MB2 (P2) au filet
+            },
+            6: { // S1 en P2, S2 en P5 (S1 distribue)
+                0: { x: 330, y: 110 }, // S1 (P2) au filet (PASSEUSE)
+                1: { x: 200, y: 110 }, // OH1 (P3) au filet
+                2: { x: 70, y: 110 },  // MB1 (P4) au filet
+                3: { x: 70, y: 380 },  // S2 (P5) reçoit arrière-gauche
+                4: { x: 200, y: 380 }, // OH2 (P6) reçoit centre
+                5: { x: 330, y: 380 }  // MB2 (P1) reçoit arrière-droite
+            }
+        }
+    }
+};
 
 // Charger les noms des joueuses
 async function loadPlayerNames() {
@@ -123,10 +143,9 @@ async function loadPlayerNames() {
         allPlayerSets = await response.json();
     } catch (e) {
         console.error("Erreur chargement noms:", e);
-        // Noms par défaut si le fichier manque
         allPlayerSets = { 
-            "set1": { "0":"S", "1":"OH1", "2":"MB1", "3":"OPP", "4":"OH2", "5":"MB2" },
-            "set2": { "0":"S2", "1":"OH1-2", "2":"MB1-2", "3":"OPP2", "4":"OH2-2", "5":"MB2-2" }
+            "set1": { "0":"S1", "1":"OH1", "2":"MB1", "3":"S2/OPP", "4":"OH2", "5":"MB2" },
+            "set2": { "0":"S1-2", "1":"OH1-2", "2":"MB1-2", "3":"S2-2", "4":"OH2-2", "5":"MB2-2" }
         };
     }
     updateUI();
@@ -135,14 +154,11 @@ async function loadPlayerNames() {
 // --- Logique de Calcul des Coordonnées ---
 
 function getPlayerPosition(playerIndex, rotation, phase, switchedProgress) {
-    const isSwitched = switchedProgress > 0.5;
-    
     if (phase === 'reception') {
-        const start = RECEPTION_START[rotation][playerIndex];
+        const start = SYSTEMS[currentSystem].reception[rotation][playerIndex];
         const end = getAttackTarget(playerIndex, rotation);
         return interpolate(start, end, switchedProgress);
     } else {
-        // Mode Service: Départ postes standard -> Cibles Défense
         const start = POS[getStandardPosCode(rotation, playerIndex)];
         const end = getDefenseTarget(playerIndex, rotation);
         return interpolate(start, end, switchedProgress);
@@ -162,11 +178,12 @@ function getStandardPosCode(rotation, playerIndex) {
 }
 
 function getAttackTarget(playerIndex, rotation) {
-    const player = PLAYERS[playerIndex];
+    const player = SYSTEMS[currentSystem].players[playerIndex];
     const posCode = getStandardPosCode(rotation, playerIndex);
     const isFront = ['P2', 'P3', 'P4'].includes(posCode);
 
-    if (player.role === 's') return TARGETS.ATTAQUE.S;
+    if (player.role === 's' && isFront) return TARGETS.ATTAQUE.S;
+    if (player.role === 's' && !isFront && currentSystem === '5-1') return TARGETS.ATTAQUE.S;
     
     if (isFront) {
         if (player.role === 'oh') return TARGETS.ATTAQUE.LEFT;
@@ -174,12 +191,11 @@ function getAttackTarget(playerIndex, rotation) {
         if (player.role === 'opp') return TARGETS.ATTAQUE.RIGHT;
     }
     
-    // Joueurs arrières restent en soutien ou défense
-    return RECEPTION_START[rotation][playerIndex];
+    return SYSTEMS[currentSystem].reception[rotation][playerIndex];
 }
 
 function getDefenseTarget(playerIndex, rotation) {
-    const player = PLAYERS[playerIndex];
+    const player = SYSTEMS[currentSystem].players[playerIndex];
     const posCode = getStandardPosCode(rotation, playerIndex);
     const isFront = ['P2', 'P3', 'P4'].includes(posCode);
 
@@ -189,7 +205,7 @@ function getDefenseTarget(playerIndex, rotation) {
         if (player.role === 's' || player.role === 'opp') return TARGETS.DEFENSE.BLOCK_R;
     } else {
         if (player.role === 's' || player.role === 'opp') return TARGETS.DEFENSE.S_OPP;
-        if (player.role === 'mb' || player.role === 'l') return TARGETS.DEFENSE.MB;
+        if (player.role === 'mb') return TARGETS.DEFENSE.MB;
         if (player.role === 'oh') return TARGETS.DEFENSE.OH;
     }
     return POS[posCode];
@@ -254,12 +270,12 @@ function drawPlayer(x, y, player, alpha = 1) {
 
 function render() {
     drawCourt();
-    PLAYERS.forEach((player, index) => {
+    SYSTEMS[currentSystem].players.forEach((player, index) => {
         const p = getPlayerPosition(index, currentRotation, currentPhase, progress);
         
         // Dessin du chemin
         if (progress > 0 && progress < 1) {
-            const start = (currentPhase === 'reception') ? RECEPTION_START[currentRotation][index] : POS[getStandardPosCode(currentRotation, index)];
+            const start = (currentPhase === 'reception') ? SYSTEMS[currentSystem].reception[currentRotation][index] : POS[getStandardPosCode(currentRotation, index)];
             ctx.beginPath();
             ctx.moveTo(start.x, start.y);
             const end = (currentPhase === 'reception') ? getAttackTarget(index, currentRotation) : getDefenseTarget(index, currentRotation);
@@ -297,13 +313,13 @@ function updateUI() {
     const btnSwitch = document.getElementById('toggle-switch');
     
     const posName = ['P1', 'P6', 'P5', 'P4', 'P3', 'P2'][currentRotation-1];
-    title.textContent = `Rotation : S en ${posName}`;
+    title.textContent = `Système ${currentSystem} | S en ${posName}`;
     
     if (currentPhase === 'reception') {
-        desc.textContent = "Phase RÉCEPTION : Placement pour éviter les fautes de position. Cliquez pour voir la transition vers l'ATTAQUE.";
+        desc.textContent = "Phase RÉCEPTION : Cliquez pour voir la transition.";
         btnSwitch.textContent = isSwitched ? "Retour Placement Réception" : "Transition vers ATTAQUE";
     } else {
-        desc.textContent = "Phase SERVICE : On est au service (en haut). Cliquez pour voir le SWITCH vers les postes de DÉFENSE.";
+        desc.textContent = "Phase SERVICE : Cliquez pour voir le SWITCH.";
         btnSwitch.textContent = isSwitched ? "Retour Positions Service" : "Switch vers DÉFENSE";
     }
     
@@ -327,6 +343,17 @@ document.querySelectorAll('.set-btn').forEach(btn => {
         e.target.classList.add('active');
         currentSet = e.target.dataset.set;
         render();
+    });
+});
+
+document.querySelectorAll('.system-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.system-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        currentSystem = e.target.dataset.system;
+        isSwitched = false;
+        progress = 0;
+        updateUI();
     });
 });
 
