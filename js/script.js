@@ -91,10 +91,10 @@ const RECEPTION_START = {
     },
     5: { // S en P3 - Légal (S=3, OH1=4, MB1=5, OPP=6, OH2=1, MB2=2)
         0: { x: 200, y: 110 }, // S (P3) au filet
-        1: { x: 70, y: 380 },  // OH1 (P4->P5) reçoit (doit rester à gauche de S)
-        2: { x: 50, y: 450 },  // MB1 (P5) cachée fond gauche
-        3: { x: 200, y: 380 }, // OPP (P6) reçoit
-        4: { x: 330, y: 380 }, // OH2 (P1) reçoit (doit rester à droite de OPP)
+        1: { x: 130, y: 250 }, // OH1 (P4) AVANCÉE POUR LES COURTES
+        2: { x: 70, y: 380 },  // MB1 (P5) RÉCEPTION POSTE 5
+        3: { x: 200, y: 380 }, // OPP (P6) RÉCEPTION POSTE 6
+        4: { x: 330, y: 380 }, // OH2 (P1) RÉCEPTION POSTE 1
         5: { x: 330, y: 100 }  // MB2 (P2) au filet
     },
     6: { // S en P2 - Légal (S=2, OH1=3, MB1=4, OPP=5, OH2=6, MB2=1)
