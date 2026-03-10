@@ -91,17 +91,10 @@ const RECEPTION_START = {
     },
     5: { // S en P3 - MODIFIÉ: MB1 participe à la réception
         0: { x: 200, y: 110 }, // S (P3) au filet
-<<<<<<< HEAD
         1: { x: 130, y: 250 }, // OH1 (P4) AVANCÉE POUR LES COURTES
         2: { x: 70, y: 380 },  // MB1 (P5) RÉCEPTION POSTE 5
         3: { x: 200, y: 380 }, // OPP (P6) RÉCEPTION POSTE 6
         4: { x: 330, y: 380 }, // OH2 (P1) RÉCEPTION POSTE 1
-=======
-        1: { x: 130, y: 350 }, // OH1 (P4->P5) reçoit (resserré vers centre)
-        2: { x: 60, y: 380 },  // MB1 (P5) RÉCEPTIONNE à gauche (n'est plus cachée)
-        3: { x: 200, y: 380 }, // OPP (P6) reçoit au centre
-        4: { x: 330, y: 380 }, // OH2 (P1) reçoit à droite
->>>>>>> 12938416acbe39f548eb3fa637f9ff8bff8104e0
         5: { x: 330, y: 100 }  // MB2 (P2) au filet
     },
     6: { // S en P2 - Légal (S=2, OH1=3, MB1=4, OPP=5, OH2=6, MB2=1)
