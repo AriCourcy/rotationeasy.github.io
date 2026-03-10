@@ -57,13 +57,13 @@ const PLAYERS = [
 // --- Positions Spécifiques (Réception pour éviter les chevauchements) ---
 // Chaque rotation a un placement de départ optimisé pour la réception
 const RECEPTION_START = {
-    1: { // S en P1 - Légal (S=1, OH1=2, MB1=3, OPP=4, OH2=5, MB2=6)
-        0: { x: 330, y: 140 }, // S (P1) derrière OH1
-        1: { x: 330, y: 110 }, // OH1 (P2) au filet
+    1: { // S en P1 - MODIFIÉ: Décalage à gauche pour ligne de 3
+        0: { x: 350, y: 140 }, // S (P1) collée à droite derrière OH1
+        1: { x: 350, y: 110 }, // OH1 (P2) au filet à droite
         2: { x: 200, y: 100 }, // MB1 (P3) au filet
-        3: { x: 60, y: 100 },  // OPP (P4) au filet
-        4: { x: 80, y: 380 },  // OH2 (P5) reçoit
-        5: { x: 210, y: 380 }  // MB2 (P6) reçoit
+        3: { x: 300, y: 340 }, // OPP (P4) recule à DROITE de la ligne de 3
+        4: { x: 60, y: 380 },  // OH2 (P5) à GAUCHE de la ligne de 3
+        5: { x: 180, y: 380 }  // MB2 (P6) au CENTRE de la ligne de 3
     },
     2: { // S en P6 - Légal (S=6, OH1=1, MB1=2, OPP=3, OH2=4, MB2=5)
         0: { x: 200, y: 140 }, // S (P6) derrière OPP
@@ -73,13 +73,13 @@ const RECEPTION_START = {
         4: { x: 70, y: 380 },  // OH2 (P4->P5) reçoit
         5: { x: 200, y: 380 }  // MB2 (P5->P6) reçoit
     },
-    3: { // S en P5 - Légal (S=5, OH1=6, MB1=1, OPP=2, OH2=3, MB2=4)
-        0: { x: 70, y: 140 },  // S (P5) derrière MB2
-        1: { x: 200, y: 380 }, // OH1 (P6) reçoit
-        2: { x: 330, y: 380 }, // MB1 (P1) reçoit
-        3: { x: 330, y: 100 }, // OPP (P2) au filet
+    3: { // S en P5 - MODIFIÉ: Décalage à gauche pour ligne de 3
+        0: { x: 40, y: 140 },  // S (P5) cachée à gauche derrière MB2
+        1: { x: 80, y: 380 },  // OH1 (P6) à GAUCHE de la ligne de 3
+        2: { x: 200, y: 380 }, // MB1 (P1) au CENTRE de la ligne de 3
+        3: { x: 320, y: 340 }, // OPP (P2) recule à DROITE de la ligne de 3
         4: { x: 200, y: 100 }, // OH2 (P3) au filet
-        5: { x: 70, y: 110 }   // MB2 (P4) au filet
+        5: { x: 40, y: 110 }   // MB2 (P4) au filet à gauche
     },
     4: { // S en P4 - Légal (S=4, OH1=5, MB1=6, OPP=1, OH2=2, MB2=3)
         0: { x: 60, y: 110 },   // S (P4) au filet
@@ -89,12 +89,19 @@ const RECEPTION_START = {
         4: { x: 330, y: 110 },  // OH2 (P2) au filet
         5: { x: 200, y: 100 }   // MB2 (P3) au filet
     },
-    5: { // S en P3 - Légal (S=3, OH1=4, MB1=5, OPP=6, OH2=1, MB2=2)
+    5: { // S en P3 - MODIFIÉ: MB1 participe à la réception
         0: { x: 200, y: 110 }, // S (P3) au filet
+<<<<<<< HEAD
         1: { x: 130, y: 250 }, // OH1 (P4) AVANCÉE POUR LES COURTES
         2: { x: 70, y: 380 },  // MB1 (P5) RÉCEPTION POSTE 5
         3: { x: 200, y: 380 }, // OPP (P6) RÉCEPTION POSTE 6
         4: { x: 330, y: 380 }, // OH2 (P1) RÉCEPTION POSTE 1
+=======
+        1: { x: 130, y: 350 }, // OH1 (P4->P5) reçoit (resserré vers centre)
+        2: { x: 60, y: 380 },  // MB1 (P5) RÉCEPTIONNE à gauche (n'est plus cachée)
+        3: { x: 200, y: 380 }, // OPP (P6) reçoit au centre
+        4: { x: 330, y: 380 }, // OH2 (P1) reçoit à droite
+>>>>>>> 12938416acbe39f548eb3fa637f9ff8bff8104e0
         5: { x: 330, y: 100 }  // MB2 (P2) au filet
     },
     6: { // S en P2 - Légal (S=2, OH1=3, MB1=4, OPP=5, OH2=6, MB2=1)
